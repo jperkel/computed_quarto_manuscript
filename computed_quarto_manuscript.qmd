@@ -1,0 +1,144 @@
+---
+title: "computed_quarto_manuscript"
+bibliography: bibliography.bib
+---
+
+## Quarto
+
+Quarto enables you to weave together content and executable code into a finished document. To learn more about Quarto see <https://quarto.org>.
+
+```{r}
+library(tidyverse)
+library(ggbeeswarm)
+```
+
+## Introduction
+
+"Literate programming" is a style of programming that uses computational notebooks to weave together code, explanatory text, data and results into a single document, enhancing scientific communication and computational reproducibility. [@shen2014; @perkel2018a; @perkel2018] (These references were added into the document using RStudio's integration with the open-source Zotero reference manager [@perkel2020] plus the [Better BibTeX](https://retorque.re/zotero-better-bibtex/) Zotero plugin.)
+
+Several platforms for creating such documents exist.[@perkel2021] Typically, these documents interleave code and text 'blocks' to build a computational narrative. But some, including [R Markdown](https://rmarkdown.rstudio.com/), [Observable](https://www.observablehq.com), and the [Jupyter Book](https://jupyterbook.org/intro.html) extension to the Jupyter ecosystem, also allow authors to include and execute code "inline" -- that is, within the text itself.
+
+This makes it possible to create fully executable manuscripts in which the document itself computes and inserts values and figures into the text rather than requiring authors to input them manually. This is in many ways the 'killer feature' of computed manuscripts: it circumvents the possibility that the author will enter an incorrect number, or forget to update a figure or value should new data arise. Among other uses, that allows authors to automatically time-stamp their documents, or insert the current version number of the software they use into their methods. For instance, this document was built at **`r format(Sys.time(), "%d %b %Y %H:%M:%S %Z")`** and calls the following R packages: `{tidyverse}` ver. **`r packageVersion("tidyverse")`** and `{ggbeeswarm}` ver. **`r packageVersion("ggbeeswarm")`**.
+
+In this manuscript, created in RStudio using the R Markdown language, we will demonstrate a more practical example. (An Observable version is [also available](https://observablehq.com/@jperkel/example-executable-observable-notebook).)
+
+## Results
+
+### Inline computation
+
+Imagine we are analyzing data from a clinical trial. We have grouped subjects in three bins and measured the concentration of some metabolite. (These data are simulated.)
+
+```{r}
+df1 <- read_csv('data/example-data-1.csv')
+```
+
+```{r}
+r <- 10
+```
+
+Rather than analyzing those data and then copying the results into our manuscript, we can use the programming language `R` to do that in the manuscript itself. Simply enclose the code inside backticks, with the letter `r`. For instance, we could calculate the circumference and area of a circle:
+
+$$A = \pi r^2, C = 2 \pi r$$ 
+
+Plugging in the radius *r* = **`r r`**, A = **`r round(pi * r^2, 2)`** and C = **`r round(2 * pi * r, 2)`**.
+
+Returning to our dataset, we can count the rows in our table to determine the number of samples, and insert that into the text. Thus, we have **`r nrow(df1)`** (simulated) subjects in our study (see @tbl-1; see [`R/mock_data.R`](https://github.com/jperkel/computed_manuscript/blob/main/R/mock_data.R) in the GitHub repository for code to generate a mock dataset). Note that the tables, figures and sections in this document are numbered automatically thanks to the `{bookdown}` package.
+
+The average metabolite concentration in this dataset is **`r round(mean(df1$conc), 2)`** (range: **`r paste(min(df1$conc), max(df1$conc), sep = ' to ')`**). We have **`r df1 %>% filter(class == 'Group 1') %>% nrow()`** subjects in Group 1, **`r df1 %>% filter(class == 'Group 2') %>% nrow()`** subjects in Group 2, and **`r df1 %>% filter(class == 'Group 3') %>% nrow()`** in Group 3. (The numbers in **bold face type** throughout this document are computed values.)
+
+```{r}
+df2 <- read_csv('data/example-data-2.csv')
+```
+
+### Incorporating new data
+
+Now suppose we get another tranche of data (@tbl-2). There are **`r nrow(df2)`** subjects in this new dataset, with an average concentration of **`r round(mean(df2$conc), 2)`** (range: **`r paste(min(df2$conc), max(df2$conc), sep = ' to ')`**).
+
+```{r}
+final_data <- rbind(df1, df2)
+```
+
+Combining the two datasets, we have a total of **`r nrow(final_data)`** subjects with an average metabolite concentration of **`r round(mean(final_data$conc), 2)`** (range: **`r paste(min(final_data$conc), max(final_data$conc), sep = ' to ')`**). We now have **`r final_data %>% filter(class == 'Group 1') %>% nrow()`** subjects in Group 1, **`r final_data %>% filter(class == 'Group 2') %>% nrow()`** in Group 2, and **`r final_data %>% filter(class == 'Group 3') %>% nrow()`** in Group 3. The concentration distribution for each group in this joint dataset is shown graphically in  @fig-plot-1.
+
+```{r}
+# create a box-plot with overlaid points
+create_plot <- function(mytable) {
+  p <- mytable %>% 
+    ggplot(aes(x = class, y = conc, fill = class, color = class)) +
+    geom_boxplot(outlier.shape = NA, alpha = 0.2) +
+    ggbeeswarm::geom_quasirandom(width = 0.25) + 
+    xlab("") +
+    ylab("Metabolite concentration") + 
+    theme_minimal() +
+    theme(legend.position = "none")
+  p
+}
+
+```
+
+```{r}
+#| label: fig-plot-1
+#| fig-cap: Beeswarm plot
+create_plot(final_data)
+```
+
+```{r}
+#| child: child_doc.qmd
+```
+
+```{r}
+# a generic function to print an arbitrary table 3 cols wide
+make_3col_table <- function(mytable) {
+  input_rows <- nrow(mytable)
+  # final_rows is the number of rows in the final table -- ie, nrow(mytable)/3
+  # ceiling returns input_rows/3, rounded up to the nearest integer if it's a fraction
+  final_rows <- ceiling(input_rows / 3) 
+  # if input_rows is not evenly divisible by 3, pad with extra rows
+  if (input_rows %% 3) {
+    for (i in 1:(3 - (input_rows %% 3))) mytable <- rbind(mytable, rep('', 3))
+  }
+  tmp <- cbind(mytable[1:final_rows,], rep('|', final_rows),
+               mytable[(final_rows+1):(2*final_rows),], rep('|', final_rows),
+               mytable[((2*final_rows)+1):(3*final_rows),])
+  names(tmp) <- c('ID', 'Class', 'Conc', '|', 'ID', 'Class', 'Conc', 
+                  '|', 'ID', 'Class', 'Conc')
+  
+  return (tmp)
+}
+```
+
+```{r}
+#| label: tbl-1
+#| tbl-cap: initial subject data
+knitr::kable(make_3col_table(df1), booktabs = TRUE)
+```
+
+```{r}
+#| label: tbl-2
+#| tbl-cap: Second batch of subject data
+knitr::kable(make_3col_table(df2), booktabs = TRUE)
+```
+
+```{r}
+#| label: tbl-3
+#| tbl-cap: Third batch of subject data
+knitr::kable(make_3col_table(df3), booktabs = TRUE)
+```
+
+## Colophon
+
+This manuscript was built at **`r format(Sys.time(), "%d %b %Y %H:%M:%S %Z")`** using the following computational environment and dependencies:
+
+```{r}
+sessionInfo()
+```
+
+The current Git commit details are:
+
+```{r git-info}
+# per Marwick, this line only executed if the user has installed {git2r} 
+if ("git2r" %in% installed.packages() & git2r::in_repository(path = '.'))
+  git2r::commits(here::here())[[1]]
+```
+
+# References
