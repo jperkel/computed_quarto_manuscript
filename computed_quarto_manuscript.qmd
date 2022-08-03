@@ -1,6 +1,17 @@
 ---
-title: "computed_quarto_manuscript"
+title: Example Quarto manuscript
 bibliography: bibliography.bib
+execute:
+  echo: false
+  warning: false
+author:
+  - name: Jeffrey M. Perkel
+    orcid: 0000-0001-5699-1008
+    affiliations:
+      - name: Nature
+        address: 1 New York Plaza
+        city: New York
+        state: NY
 ---
 
 ## Quarto
@@ -24,7 +35,7 @@ In this manuscript, created in RStudio using Quarto, we will demonstrate a more 
 
 ## Results{#sec-results}
 
-### Inline computation{sec-inline-comps}
+### Inline computation{#sec-inline-comps}
 
 Imagine we are analyzing data from a clinical trial. We have grouped subjects in three bins and measured the concentration of some metabolite. (These data are simulated.)
 
@@ -141,4 +152,4 @@ if ("git2r" %in% installed.packages() & git2r::in_repository(path = '.'))
   git2r::commits(here::here())[[1]]
 ```
 
-# References{sec-references}
+# References{#sec-references}
