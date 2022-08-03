@@ -53,11 +53,14 @@ df1 <- read_csv('data/example-data-1.csv')
 r <- 10
 ```
 
-Rather than analyzing those data and then copying the results into our manuscript, we can use the programming language `R` to do that in the manuscript itself. Simply enclose the code inside backticks, with the letter `r`. For instance, we could calculate the circumference and area of a circle:
+Rather than analyzing those data and then copying the results into our manuscript, we can use the programming language `R` to do that in the manuscript itself. Simply enclose the code inside backticks, with the letter `r`. For instance, we could calculate the circumference and area of a circle, using the `ObservableJS` library to make things interactive:
 
 $$A = \pi r^2, C = 2 \pi r$$ 
+```{ojs}
+viewof rad = Inputs.range([0, 100], {step: 1, value: 20, label: htl.html`radius (<i>r</i>)`})
+```
 
-Plugging in the radius *r* = **`r r`**, A = **`r round(pi * r^2, 2)`** and C = **`r round(2 * pi * r, 2)`**.
+Plugging in the radius r = ${rad}, A = ${d3.format(".2f")(Math.PI * rad * rad)} and C = ${d3.format(".2f")(2 * Math.PI * rad)}.
 
 Returning to our dataset, we can count the rows in our table to determine the number of samples, and insert that into the text. Thus, we have **`r nrow(df1)`** (simulated) subjects in our study (see @tbl-1; see [`R/mock_data.R`](https://github.com/jperkel/computed_manuscript/blob/main/R/mock_data.R) in the GitHub repository for code to generate a mock dataset). Note that the tables, figures and sections in this document are numbered automatically.
 
