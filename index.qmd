@@ -18,24 +18,22 @@ author:
         state: NY
 ---
 
-## Quarto
-
-Quarto enables you to weave together content and executable code into a finished document. To learn more about Quarto see <https://quarto.org>. See <https://quarto.org/docs/guide/> for a guide to authoring in Quarto.
-
 ```{r}
 library(tidyverse)
 library(ggbeeswarm)
 ```
 
-:::{.callout-note}
-To learn more about executable manuscripts, check out our [_Nature_ feature](https://www.nature.com/articles/d41586-022-00563-z), published 28 February 2022.
-:::
-
 ## Introduction{#sec-intro}
 
 "Literate programming" is a style of programming that uses computational notebooks to weave together code, explanatory text, data and results into a single document, enhancing scientific communication and computational reproducibility. [@shen2014; @perkel2018a; @perkel2018] (These references were added into the document using RStudio's integration with the open-source Zotero reference manager [@perkel2020] plus the [Better BibTeX](https://retorque.re/zotero-better-bibtex/) Zotero plugin.)
 
-Several platforms for creating such documents exist.[@perkel2021] Typically, these documents interleave code and text 'blocks' to build a computational narrative. But some, including [R Markdown](https://rmarkdown.rstudio.com/), [Observable](https://www.observablehq.com), and the [Jupyter Book](https://jupyterbook.org/intro.html) extension to the Jupyter ecosystem, also allow authors to include and execute code "inline" -- that is, within the text itself. The newest entry to this toolset is [Quarto](https://quarto.org), "an open-source scientific and technical publishing system built on Pandoc."
+Several platforms for creating such documents exist.[@perkel2021] Typically, these documents interleave code and text 'blocks' to build a computational narrative. But some, including [R Markdown](https://rmarkdown.rstudio.com/), [Observable](https://www.observablehq.com), and the [Jupyter Book](https://jupyterbook.org/intro.html) extension to the Jupyter ecosystem, also allow authors to include and execute code "inline" -- that is, within the text itself. 
+
+The newest entry to this toolset is [Quarto](https://quarto.org). "an open-source scientific and technical publishing system built on Pandoc." See <https://quarto.org/docs/guide/> for a guide to authoring in Quarto.
+
+:::{.callout-note}
+To learn more about executable manuscripts, check out our [_Nature_ feature](https://www.nature.com/articles/d41586-022-00563-z), published 28 February 2022.
+:::
 
 Whichever you use, these platforms make it possible to create fully executable manuscripts in which the document itself computes and inserts values and figures into the text rather than requiring authors to input them manually. This is in many ways the 'killer feature' of computed manuscripts: it circumvents the possibility that the author will enter an incorrect number, or forget to update a figure or value should new data arise. Among other uses, that allows authors to automatically time-stamp their documents, or insert the current version number of the software they use into their methods. For instance, this document was built at **`r format(Sys.time(), "%d %b %Y %H:%M:%S %Z")`** and uses the following R packages: `{tidyverse}` ver. **`r packageVersion("tidyverse")`** and `{ggbeeswarm}` ver. **`r packageVersion("ggbeeswarm")`**.
 
