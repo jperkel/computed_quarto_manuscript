@@ -29,6 +29,10 @@ library(ggbeeswarm)
 
 ## Introduction{#sec-intro}
 
+:::{.callout-note}
+This document was originally created as a supplement to a [_Nature_ feature](https://www.nature.com/articles/d41586-022-00563-z) on executable manuscripts, published 28 February 2022.
+:::
+
 "Literate programming" is a style of programming that uses computational notebooks to weave together code, explanatory text, data and results into a single document, enhancing scientific communication and computational reproducibility. [@shen2014; @perkel2018a; @perkel2018] (These references were added into the document using RStudio's integration with the open-source Zotero reference manager [@perkel2020] plus the [Better BibTeX](https://retorque.re/zotero-better-bibtex/) Zotero plugin.)
 
 Several platforms for creating such documents exist.[@perkel2021] Typically, these documents interleave code and text 'blocks' to build a computational narrative. But some, including [R Markdown](https://rmarkdown.rstudio.com/), [Observable](https://www.observablehq.com), the [Jupyter Book](https://jupyterbook.org/intro.html) extension to the Jupyter ecosystem, and now [Quarto](https://quarto.org) also allow authors to include and execute code "inline" -- that is, within the text itself.
@@ -57,7 +61,7 @@ $$A = \pi r^2, C = 2 \pi r$$
 
 Plugging in the radius *r* = **`r r`**, A = **`r round(pi * r^2, 2)`** and C = **`r round(2 * pi * r, 2)`**.
 
-Returning to our dataset, we can count the rows in our table to determine the number of samples, and insert that into the text. Thus, we have **`r nrow(df1)`** (simulated) subjects in our study (see @tbl-1; see [`R/mock_data.R`](https://github.com/jperkel/computed_manuscript/blob/main/R/mock_data.R) in the GitHub repository for code to generate a mock dataset). Note that the tables, figures and sections in this document are numbered automatically thanks to the `{bookdown}` package.
+Returning to our dataset, we can count the rows in our table to determine the number of samples, and insert that into the text. Thus, we have **`r nrow(df1)`** (simulated) subjects in our study (see @tbl-1; see [`R/mock_data.R`](https://github.com/jperkel/computed_manuscript/blob/main/R/mock_data.R) in the GitHub repository for code to generate a mock dataset). Note that the tables, figures and sections in this document are numbered automatically.
 
 The average metabolite concentration in this dataset is **`r round(mean(df1$conc), 2)`** (range: **`r paste(min(df1$conc), max(df1$conc), sep = ' to ')`**). We have **`r df1 %>% filter(class == 'Group 1') %>% nrow()`** subjects in Group 1, **`r df1 %>% filter(class == 'Group 2') %>% nrow()`** subjects in Group 2, and **`r df1 %>% filter(class == 'Group 3') %>% nrow()`** in Group 3. (The numbers in **bold face type** throughout this document are computed values.)
 
@@ -93,7 +97,7 @@ create_plot <- function(mytable) {
 
 ```{r}
 #| label: fig-plot-1
-#| fig-cap: Beeswarm plot
+#| fig-cap: Metabolite concentration of clinical trial subjects
 create_plot(final_data)
 ```
 

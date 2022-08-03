@@ -1,5 +1,5 @@
 ---
-title: "child_doc.Rmd"
+title: "child_doc.qmd"
 output: html_document
 ---
 
@@ -12,7 +12,7 @@ df3 <- read_csv('data/example-data-3.csv')
 really_final_data <- rbind(final_data, df3)
 ```
 
-In this child document, we'll add a third set of numbers to our growing dataset (\@tbl-3); note that the table, figure and section numbering in this child document matches that of the larger manuscript).
+In this child document, we'll add a third set of numbers to our growing dataset (@tbl-3); note that the table, figure and section numbering in this child document matches that of the larger manuscript).
 
 The new dataset describes **`r nrow(df3)`** samples. Folding them into our existing data gives us **`r nrow(really_final_data)`** subjects, with **`r really_final_data %>% filter(class == 'Group 1') %>% nrow()`** in Group 1, **`r really_final_data %>% filter(class == 'Group 2') %>% nrow()`** in Group 2, and **`r really_final_data %>% filter(class == 'Group 3') %>% nrow()`** in Group 3. The new concentration distribution is shown graphically in @fig-plot-2.
 
