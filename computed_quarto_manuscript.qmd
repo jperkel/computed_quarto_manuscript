@@ -1,5 +1,9 @@
 ---
 title: Example Quarto manuscript
+format: html
+  # pdf:
+  #  number-sections: true
+csl: nature.csl
 bibliography: bibliography.bib
 execute:
   echo: false
@@ -16,7 +20,7 @@ author:
 
 ## Quarto
 
-Quarto enables you to weave together content and executable code into a finished document. To learn more about Quarto see <https://quarto.org>.
+Quarto enables you to weave together content and executable code into a finished document. To learn more about Quarto see <https://quarto.org>. See <https://quarto.org/docs/guide/> for a guide to authoring in Quarto.
 
 ```{r}
 library(tidyverse)
