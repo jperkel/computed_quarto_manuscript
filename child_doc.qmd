@@ -5,7 +5,7 @@ output: html_document
 
 ## Importing a child document
 
-Authors can break long manuscripts into more manageable pieces by placing each chapter or section in their own Markdown file and using the R Markdown `child` option. Though most of the text (and code) in this document is contained in the file `computed_manuscript.qmd`, the text for this section comes from `child_doc.qmd`. Citations that are created in the child automatically get inserted into the final document, making it possible to create a single, unified bibliography. For instance, here's a reference for the [R Markdown Cookbook](https://bookdown.org/yihui/rmarkdown-cookbook/).[@xieMarkdownCookbook2020]
+Authors can break long manuscripts into more manageable pieces by placing each chapter or section in their own Markdown file and using Quarto's `child` option. Though most of the text (and code) in this document is contained in the file `index.qmd`, the text for this section comes from `child_doc.qmd`. Citations that are created in the child automatically get inserted into the final document, making it possible to create a single, unified bibliography. For instance, here's a reference for the [R Markdown Cookbook](https://bookdown.org/yihui/rmarkdown-cookbook/).[@xieMarkdownCookbook2020]
 
 ```{r third-dataset}
 df3 <- read_csv('data/example-data-3.csv')

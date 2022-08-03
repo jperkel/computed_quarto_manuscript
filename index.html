@@ -94,9 +94,6 @@ div.csl-indent {
 <div class="cell">
 
 </div>
-</section>
-<section id="sec-intro" class="level2">
-<h2 class="anchored" data-anchor-id="sec-intro">Introduction</h2>
 <div class="callout-note callout callout-style-default callout-captioned">
 <div class="callout-header d-flex align-content-center">
 <div class="callout-icon-container">
@@ -107,12 +104,15 @@ Note
 </div>
 </div>
 <div class="callout-body-container callout-body">
-<p>This document was originally created as a supplement to a <a href="https://www.nature.com/articles/d41586-022-00563-z"><em>Nature</em> feature</a> on executable manuscripts, published 28 February 2022.</p>
+<p>To learn more about executable manuscripts, check out our <a href="https://www.nature.com/articles/d41586-022-00563-z"><em>Nature</em> feature</a>, published 28 February 2022.</p>
 </div>
 </div>
+</section>
+<section id="sec-intro" class="level2">
+<h2 class="anchored" data-anchor-id="sec-intro">Introduction</h2>
 <p>“Literate programming” is a style of programming that uses computational notebooks to weave together code, explanatory text, data and results into a single document, enhancing scientific communication and computational reproducibility.<span class="citation" data-cites="shen2014 perkel2018a perkel2018"><sup><a href="#ref-shen2014" role="doc-biblioref">1</a>–<a href="#ref-perkel2018" role="doc-biblioref">3</a></sup></span> (These references were added into the document using RStudio’s integration with the open-source Zotero reference manager<span class="citation" data-cites="perkel2020"><sup><a href="#ref-perkel2020" role="doc-biblioref">4</a></sup></span> plus the <a href="https://retorque.re/zotero-better-bibtex/">Better BibTeX</a> Zotero plugin.)</p>
-<p>Several platforms for creating such documents exist.<span class="citation" data-cites="perkel2021"><sup><a href="#ref-perkel2021" role="doc-biblioref">5</a></sup></span> Typically, these documents interleave code and text ‘blocks’ to build a computational narrative. But some, including <a href="https://rmarkdown.rstudio.com/">R Markdown</a>, <a href="https://www.observablehq.com">Observable</a>, the <a href="https://jupyterbook.org/intro.html">Jupyter Book</a> extension to the Jupyter ecosystem, and now <a href="https://quarto.org">Quarto</a> also allow authors to include and execute code “inline” – that is, within the text itself.</p>
-<p>This makes it possible to create fully executable manuscripts in which the document itself computes and inserts values and figures into the text rather than requiring authors to input them manually. This is in many ways the ‘killer feature’ of computed manuscripts: it circumvents the possibility that the author will enter an incorrect number, or forget to update a figure or value should new data arise. Among other uses, that allows authors to automatically time-stamp their documents, or insert the current version number of the software they use into their methods. For instance, this document was built at <strong>03 Aug 2022 07:37:19 MST</strong> and calls the following R packages: <code>{tidyverse}</code> ver. <strong>1.3.0</strong> and <code>{ggbeeswarm}</code> ver. <strong>0.6.0</strong>.</p>
+<p>Several platforms for creating such documents exist.<span class="citation" data-cites="perkel2021"><sup><a href="#ref-perkel2021" role="doc-biblioref">5</a></sup></span> Typically, these documents interleave code and text ‘blocks’ to build a computational narrative. But some, including <a href="https://rmarkdown.rstudio.com/">R Markdown</a>, <a href="https://www.observablehq.com">Observable</a>, and the <a href="https://jupyterbook.org/intro.html">Jupyter Book</a> extension to the Jupyter ecosystem, also allow authors to include and execute code “inline” – that is, within the text itself. The newest entry to this toolset is <a href="https://quarto.org">Quarto</a>, “an open-source scientific and technical publishing system built on Pandoc.”</p>
+<p>Whichever you use, these platforms make it possible to create fully executable manuscripts in which the document itself computes and inserts values and figures into the text rather than requiring authors to input them manually. This is in many ways the ‘killer feature’ of computed manuscripts: it circumvents the possibility that the author will enter an incorrect number, or forget to update a figure or value should new data arise. Among other uses, that allows authors to automatically time-stamp their documents, or insert the current version number of the software they use into their methods. For instance, this document was built at <strong>03 Aug 2022 09:39:07 MST</strong> and uses the following R packages: <code>{tidyverse}</code> ver. <strong>1.3.0</strong> and <code>{ggbeeswarm}</code> ver. <strong>0.6.0</strong>.</p>
 <p>In this manuscript, created in RStudio using Quarto, we will demonstrate a more practical example. (An Observable version is <a href="https://observablehq.com/@jperkel/example-executable-observable-notebook">also available</a>.)</p>
 </section>
 <section id="sec-results" class="level2">
@@ -159,7 +159,7 @@ Note
 </section>
 <section id="importing-a-child-document" class="level2">
 <h2 class="anchored" data-anchor-id="importing-a-child-document">Importing a child document</h2>
-<p>Authors can break long manuscripts into more manageable pieces by placing each chapter or section in their own Markdown file and using the R Markdown <code>child</code> option. Though most of the text (and code) in this document is contained in the file <code>computed_manuscript.qmd</code>, the text for this section comes from <code>child_doc.qmd</code>. Citations that are created in the child automatically get inserted into the final document, making it possible to create a single, unified bibliography. For instance, here’s a reference for the <a href="https://bookdown.org/yihui/rmarkdown-cookbook/">R Markdown Cookbook</a>.<span class="citation" data-cites="xieMarkdownCookbook2020"><sup><a href="#ref-xieMarkdownCookbook2020" role="doc-biblioref">6</a></sup></span></p>
+<p>Authors can break long manuscripts into more manageable pieces by placing each chapter or section in their own Markdown file and using Quarto’s <code>child</code> option. Though most of the text (and code) in this document is contained in the file <code>index.qmd</code>, the text for this section comes from <code>child_doc.qmd</code>. Citations that are created in the child automatically get inserted into the final document, making it possible to create a single, unified bibliography. For instance, here’s a reference for the <a href="https://bookdown.org/yihui/rmarkdown-cookbook/">R Markdown Cookbook</a>.<span class="citation" data-cites="xieMarkdownCookbook2020"><sup><a href="#ref-xieMarkdownCookbook2020" role="doc-biblioref">6</a></sup></span></p>
 <div class="cell">
 
 </div>
@@ -1208,7 +1208,7 @@ Note
 </section>
 <section id="sec-colophon" class="level2">
 <h2 class="anchored" data-anchor-id="sec-colophon">Colophon</h2>
-<p>This manuscript was built at <strong>03 Aug 2022 07:37:22 MST</strong> using the following computational environment and dependencies:</p>
+<p>This manuscript was built at <strong>03 Aug 2022 09:39:10 MST</strong> using the following computational environment and dependencies:</p>
 <div class="cell">
 <div class="cell-output cell-output-stdout">
 <pre><code>R version 4.0.4 (2021-02-15)
@@ -1252,7 +1252,7 @@ loaded via a namespace (and not attached):
 <p>The current Git commit details are:</p>
 <div class="cell">
 <div class="cell-output cell-output-stdout">
-<pre><code>[07b8028] 2022-08-03: Delete index.html</code></pre>
+<pre><code>[a327bbf] 2022-08-03: Add index.html, index_files</code></pre>
 </div>
 </div>
 </section>
