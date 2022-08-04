@@ -4,6 +4,10 @@ format: html
   # pdf:
   #  number-sections: true
 csl: nature.csl
+date: now
+date-format: "DD MMM YYYY"
+toc: true
+number-sections: true
 bibliography: bibliography.bib
 execute:
   echo: false
