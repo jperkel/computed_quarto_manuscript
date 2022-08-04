@@ -165,4 +165,4 @@ if ("git2r" %in% installed.packages() & git2r::in_repository(path = '.'))
   git2r::commits(here::here())[[1]]
 ```
 
-# References{#sec-references}
+## References{#sec-references}
